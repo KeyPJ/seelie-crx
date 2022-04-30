@@ -1,0 +1,89 @@
+{
+  "A": {
+    "message": "破"
+  },
+  "ALL": {
+    "message": "全部"
+  },
+  "Character": {
+    "message": "角色"
+  },
+  "Talent": {
+    "message": "天赋"
+  },
+  "Weapon": {
+    "message": "武器"
+  },
+  "accountDataFail": {
+    "message": "账户信息获取失败"
+  },
+  "accountInfo": {
+    "message": "获取账户信息"
+  },
+  "accountSwitch": {
+    "message": "账户选择"
+  },
+  "ascensionDataFail": {
+    "message": "米游社数据无法判断是否突破,请自行比较整数等级是否已突破"
+  },
+  "batchOperate": {
+    "message": "规划批量操作"
+  },
+  "batchSet": {
+    "message": "批量设置$details$目标等级",
+    "placeholders": {
+      "details": {
+        "content": "$1",
+        "example": "角色"
+      }
+    }
+  },
+  "burst": {
+    "message": "元素爆发"
+  },
+  "dataSync": {
+    "message": "角色信息同步"
+  },
+  "dataSyncStart": {
+    "message": "开始同步角色信息"
+  },
+  "dataSyncSuccess": {
+    "message": "角色信息同步完毕"
+  },
+  "description": {
+    "message": "利用米游社养成计算器api获取角色信息,直接导入至仙灵·原神规划助手"
+  },
+  "gameBizCN": {
+    "message": "国服"
+  },
+  "gameBizGlobal": {
+    "message": "国际服"
+  },
+  "gameBizSwitch": {
+    "message": "区服选择"
+  },
+  "goalLevel": {
+    "message": "目标等级"
+  },
+  "name": {
+    "message": "仙灵扩展"
+  },
+  "normal": {
+    "message": "普通攻击"
+  },
+  "onlyActive": {
+    "message": "仅激活"
+  },
+  "queryFailed": {
+    "message": "查询失败"
+  },
+  "setGoalLevelSuccess": {
+    "message": "目标等级设置完毕"
+  },
+  "setTalentSuccess": {
+    "message": "角色目标天赋设置完毕"
+  },
+  "skill": {
+    "message": "元素战技"
+  }
+}

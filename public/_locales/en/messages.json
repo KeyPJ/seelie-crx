@@ -1,0 +1,89 @@
+{
+  "A": {
+    "message": "A"
+  },
+  "ALL": {
+    "message": "ALL "
+  },
+  "Character": {
+    "message": " Character "
+  },
+  "Talent": {
+    "message": " Talent "
+  },
+  "Weapon": {
+    "message": " Weapon "
+  },
+  "accountDataFail": {
+    "message": "get account data failed"
+  },
+  "accountInfo": {
+    "message": "Get Account"
+  },
+  "accountSwitch": {
+    "message": "Account"
+  },
+  "ascensionDataFail": {
+    "message": "ascension data need to modified manually"
+  },
+  "batchOperate": {
+    "message": "Batch Operate"
+  },
+  "batchSet": {
+    "message": "Batch Set $details$ Goal Level",
+    "placeholders": {
+      "details": {
+        "content": "$1",
+        "example": "Character"
+      }
+    }
+  },
+  "burst": {
+    "message": "BURST"
+  },
+  "dataSync": {
+    "message": "Data Sync"
+  },
+  "dataSyncStart": {
+    "message": "data sync start"
+  },
+  "dataSyncSuccess": {
+    "message": "data sync success"
+  },
+  "description": {
+    "message": "import data into seelie by HoYoLAB api"
+  },
+  "gameBizCN": {
+    "message": "CN"
+  },
+  "gameBizGlobal": {
+    "message": "Global"
+  },
+  "gameBizSwitch": {
+    "message": "Region"
+  },
+  "goalLevel": {
+    "message": " Goal Level "
+  },
+  "name": {
+    "message": "seelieEx"
+  },
+  "normal": {
+    "message": "NORMAL"
+  },
+  "onlyActive": {
+    "message": "Only Active "
+  },
+  "queryFailed": {
+    "message": "query Failed"
+  },
+  "setGoalLevelSuccess": {
+    "message": "setGoalLevelSuccess"
+  },
+  "setTalentSuccess": {
+    "message": "set Talent Success"
+  },
+  "skill": {
+    "message": "SKILL"
+  }
+}

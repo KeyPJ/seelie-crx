@@ -3,9 +3,10 @@ import {ManifestType} from '@src/manifest-type';
 
 const manifest: ManifestType = {
     manifest_version: 3,
-    name: pkg.displayName,
+    // name: pkg.displayName,
+    name: "__MSG_name__",
     version: pkg.version,
-    description: pkg.description,
+    description: "__MSG_description__",
     // options_page: 'src/pages/options/index.html',
     background: {
         service_worker: 'src/pages/background/index.js',
@@ -38,7 +39,8 @@ const manifest: ManifestType = {
     permissions: ['storage', 'cookies', 'alarms','notifications',"tabs"],
     host_permissions: [
         "https://*.mihoyo.com/*",
-    ]
+    ],
+    default_locale:"zh_CN"
 };
 
 export default manifest;

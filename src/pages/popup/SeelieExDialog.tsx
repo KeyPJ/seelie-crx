@@ -44,11 +44,11 @@ function ExDialog() {
 
     const syncCharacterInfo = () => {
         if (!currentAccount) {
-            console.error("账户信息获取失败")
-            showMessage("账户信息获取失败")
+            console.error(chrome.i18n.getMessage("accountDataFail"))
+            showMessage(chrome.i18n.getMessage("accountDataFail"))
             return
         }
-        console.log("开始同步角色信息")
+        console.log(chrome.i18n.getMessage("dataSyncStart"))
         const {game_uid, region} = currentAccount;
         chrome.runtime.sendMessage({method: "get-detail-list", params: {game_uid, region}}, res => {
             {
@@ -95,7 +95,7 @@ function ExDialog() {
                             <>
                                 <Disclosure.Button
                                     className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-slate-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                                    <span>角色信息同步</span>
+                                    <span>{chrome.i18n.getMessage("dataSync")}</span>
                                     <ChevronUpIcon
                                         className={`${
                                             open ? 'transform rotate-180' : ''
@@ -105,26 +105,26 @@ function ExDialog() {
                                 <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white-500">
                                     <div className="flex pt-4">
                                         <div className="w-1/2 text-white-900">
-                                            区服选择:
+                                            {chrome.i18n.getMessage("gameBizSwitch")}:
                                         </div>
                                         <ToggleSwitch
                                             className='w-1/2'
                                             checked={gameBizSwitchEnabled}
                                             onChange={onChangeGameBiz}
-                                            labelLeft={'国服'}
-                                            labelRight={'国际服'}
+                                            labelLeft={chrome.i18n.getMessage("gameBizCN")}
+                                            labelRight={chrome.i18n.getMessage("gameBizGlobal")}
                                         />
                                     </div>
                                     <div className="flex pt-2">
                                         <div className="w-full">
                                             <button className="text-white bg-blue-500 px-4 py-2"
-                                                    onClick={getAccountList}>获取账户信息
+                                                    onClick={getAccountList}>{chrome.i18n.getMessage("accountInfo")}
                                             </button>
                                         </div>
                                     </div>
                                     <div className="flex pt-4">
                                         <div className="w-1/2 text-white-900">
-                                            账户选择:
+                                            {chrome.i18n.getMessage("accountSwitch")}:
                                         </div>
                                         <div className="w-1/2">
                                             <ListboxSelect
@@ -138,7 +138,7 @@ function ExDialog() {
                                     <div className="flex pt-2">
                                         <div className="w-full">
                                             <button className="text-white bg-blue-500 px-4 py-2"
-                                                    onClick={syncCharacterInfo}>同步mihoyo角色信息
+                                                    onClick={syncCharacterInfo}>{chrome.i18n.getMessage("dataSync")}
                                             </button>
                                         </div>
                                     </div>
@@ -151,7 +151,7 @@ function ExDialog() {
                             <>
                                 <Disclosure.Button
                                     className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-slate-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                                    <span>规划批量操作</span>
+                                    <span>{chrome.i18n.getMessage("batchOperate")}</span>
                                     <ChevronUpIcon
                                         className={`${
                                             open ? 'transform rotate-180' : ''
@@ -161,7 +161,7 @@ function ExDialog() {
                                 <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white-500">
                                     <Tab.Group>
                                         <Tab.List className="flex p-1 space-x-1 bg-blue-900/20 rounded-xl">
-                                            {['角色目标等级', '天赋目标等级', '武器目标等级'].map((category) => (
+                                            {[chrome.i18n.getMessage("Character"), chrome.i18n.getMessage("Talent"), chrome.i18n.getMessage("Weapon")].map((category) => (
                                                 <Tab
                                                     key={category}
                                                     className={({selected}) =>
@@ -179,10 +179,10 @@ function ExDialog() {
                                             ))}
                                         </Tab.List>
                                         <Tab.Panels>
-                                            <Tab.Panel><CharacterGoalTab showText={'角色'}
+                                            <Tab.Panel><CharacterGoalTab showText={chrome.i18n.getMessage("Character")}
                                                                          batchUpdateCharacter={batchUpdateCharacter}/></Tab.Panel>
                                             <Tab.Panel><TalentGoalTab/></Tab.Panel>
-                                            <Tab.Panel><CharacterGoalTab showText={'武器'}
+                                            <Tab.Panel><CharacterGoalTab showText={chrome.i18n.getMessage("Weapon")}
                                                                          batchUpdateCharacter={batchUpdateWeapon}/></Tab.Panel>
                                         </Tab.Panels>
                                     </Tab.Group>

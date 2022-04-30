@@ -30,12 +30,12 @@ function TalentGoalTab() {
                 className='w-full'
                 checked={selectAllRoles}
                 onChange={setSelectAllRoles}
-                labelLeft={'全部角色'}
-                labelRight={'仅激活角色'}
+                labelLeft={chrome.i18n.getMessage("ALL")}
+                labelRight={chrome.i18n.getMessage("onlyActive")}
             />
         </div>
         <div className="grid grid-rows-2 grid-flow-col gap-2">
-            <div className='mt-10'>普通攻击</div>
+            <div className='mt-10'>{chrome.i18n.getMessage("normal")}</div>
             <div>
                 <ListboxSelect
                     selected={talentGoalLevel.normal}
@@ -47,7 +47,7 @@ function TalentGoalTab() {
                     show={num => `${num}`}
                 />
             </div>
-            <div className='mt-10'>元素战技</div>
+            <div className='mt-10'>{chrome.i18n.getMessage("skill")}</div>
             <div>
                 <ListboxSelect
                     selected={talentGoalLevel.skill}
@@ -59,7 +59,7 @@ function TalentGoalTab() {
                     show={num => `${num}`}
                 />
             </div>
-            <div className='mt-10'>元素爆发</div>
+            <div className='mt-10'>{chrome.i18n.getMessage("burst")}</div>
             <div>
                 <ListboxSelect
                     selected={talentGoalLevel.burst}
@@ -75,7 +75,7 @@ function TalentGoalTab() {
         <div className="flex pt-2">
             <div className="w-full">
                 <button className="text-white bg-blue-500 px-4 py-2"
-                        onClick={batchSetCharacterTalentLevel}>批量设置角色目标天赋
+                        onClick={batchSetCharacterTalentLevel}>{chrome.i18n.getMessage("batchSet",chrome.i18n.getMessage("Talent"))}
                 </button>
             </div>
         </div>

@@ -37,9 +37,9 @@ export const addCharacter = (res: CharacterDataEx[]) => {
             id && chrome.tabs.sendMessage(id, payload, () => {
                 //最后提醒并刷新
                 if (res.length == index + 1) {
-                    console.log(`米游社数据无法判断是否突破,请自行比较整数等级是否已突破`)
-                    console.log(`角色信息同步完毕`)
-                    id && showMessage("角色信息同步完毕")
+                    console.log(chrome.i18n.getMessage("ascensionDataFail"))
+                    console.log(chrome.i18n.getMessage("dataSyncSuccess"))
+                    id && showMessage(chrome.i18n.getMessage("dataSyncSuccess"))
                     refresh(id);
                 }
             });
@@ -59,7 +59,7 @@ function batchUpdate(method: string, all: boolean, characterStatusGoal: seelie.C
             }
         }
         id && chrome.tabs.sendMessage(id, payload, () => {
-            showMessage(`目标等级设置完毕`)
+            showMessage(chrome.i18n.getMessage("setGoalLevelSuccess"))
             refresh(id);
         });
     };
@@ -85,7 +85,7 @@ export const batchUpdateTalent = (all: boolean, normal: number, skill: number, b
             }
         }
         id && chrome.tabs.sendMessage(id, payload, () => {
-            showMessage("角色目标天赋设置完毕")
+            showMessage(chrome.i18n.getMessage("setTalentSuccess"))
             refresh(id);
         });
     };

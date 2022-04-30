@@ -47,27 +47,27 @@ function CharacterGoalTab(props: IProps) {
                 className='w-full'
                 checked={selectAllRoles}
                 onChange={setSelectAllRoles}
-                labelLeft={`全部${showText}`}
-                labelRight={`仅激活${showText}`}
+                labelLeft={chrome.i18n.getMessage("ALL")}
+                labelRight={chrome.i18n.getMessage("onlyActive")}
             />
         </div>
         <div className="flex pt-4">
             <div className="w-1/2 text-white-900">
-                {showText}目标等级:
+                {showText+chrome.i18n.getMessage("goalLevel")}:
             </div>
             <div className="w-1/2">
                 <ListboxSelect
                     selected={characterLevelGoal}
                     setSelected={setCharacterLevelGoal}
                     optionList={optionList}
-                    show={characterStatus => `${characterStatus.text.replace("A", "破")}`}
+                    show={characterStatus => `${characterStatus.text.replace("A", chrome.i18n.getMessage("A"))}`}
                 />
             </div>
         </div>
         <div className="flex pt-2">
             <div className="w-full">
                 <button className="text-white bg-blue-500 px-4 py-2"
-                        onClick={batchSetCharacterGoalLevel}>批量设置{showText}目标等级
+                        onClick={batchSetCharacterGoalLevel}>{chrome.i18n.getMessage("batchSet",showText)}
                 </button>
             </div>
         </div>
