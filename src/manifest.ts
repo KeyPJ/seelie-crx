@@ -32,7 +32,7 @@ const manifest: ManifestType = {
     web_accessible_resources: [
         {
             resources: ['contentStyle.css', 'icon-128.png', 'icon-34.png'],
-            matches: ["*://*.mihoyo.com/*"],
+            matches: [],
         },
     ],
     permissions: ['storage', 'cookies', 'alarms','notifications',"tabs"],

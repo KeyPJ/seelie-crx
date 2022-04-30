@@ -1,12 +1,12 @@
 {
-  "name": "vite-web-extension",
-  "displayName": "Web Extension Boilerplate",
+  "name": "seelie-crx",
+  "displayName": "仙灵扩展seelie-crx",
   "version": "1.0.0",
-  "description": "A simple chrome extension template with Vite, React, TypeScript and Tailwind CSS.",
+  "description": "利用米游社养成计算器api获取角色信息,直接导入至仙灵·原神规划助手\n import data into seelie by HoYoLAB api",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JohnBra/web-extension.git"
+    "url": "https://github.com/KeyPJ/seelie-crx.git"
   },
   "scripts": {
     "build": "tsc --noEmit && vite build",
