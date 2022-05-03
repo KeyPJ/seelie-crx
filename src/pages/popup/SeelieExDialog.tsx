@@ -87,7 +87,7 @@ function ExDialog() {
 
     return (
         <div
-            className="fixed top-10 inset-x-[20%] mx-auto min-w-[50%] min-h-min rounded-md bg-slate-700 opacity-75 text-white text-center z-[1200]">
+            className="fixed inset-[2%] mx-auto min-w-[50%] min-h-min rounded-md bg-slate-700 opacity-75 text-white text-center z-[1200]">
             <div className="w-full p-4">
                 <div className="w-full max-w-md p-2 mx-auto bg-purple rounded-2xl">
                     <Disclosure>
