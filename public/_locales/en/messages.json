@@ -23,6 +23,9 @@
   "accountSwitch": {
     "message": "Account"
   },
+  "alertMsg": {
+    "message": "please open https://seelie.me or https://seelie.inmagi.com"
+  },
   "ascensionDataFail": {
     "message": "ascension data need to modified manually"
   },

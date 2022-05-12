@@ -24,7 +24,7 @@ const manifest: ManifestType = {
     },
     content_scripts: [
         {
-            matches: ['https://seelie.inmagi.com/*', 'https://seelie.me/*', 'https://localhost:3000/*'],
+            matches: ['https://seelie.inmagi.com/*', 'https://seelie.me/*'],
             js: ['src/pages/content/index.js'],
             // css: ['contentStyle.css'],
         },
@@ -36,11 +36,11 @@ const manifest: ManifestType = {
             matches: [],
         },
     ],
-    permissions: ['storage', 'cookies', 'alarms','notifications',"tabs"],
+    permissions: ['storage', 'cookies', 'alarms', 'notifications', "tabs"],
     host_permissions: [
         "https://*.mihoyo.com/*",
     ],
-    default_locale:"zh_CN"
+    default_locale: "zh_CN"
 };
 
 export default manifest;

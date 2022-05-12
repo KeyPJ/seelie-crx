@@ -2,22 +2,14 @@ import CharacterDataEx = mihoyo.CharacterDataEx;
 import CharacterStatus = seelie.CharacterStatus;
 
 function checkAndSendMessage(sendMessage4AddCharacter: (id: number) => void) {
-    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        const length = tabs.length;
-        if (length == 0) {
-            return;
-        }
-        const tab: chrome.tabs.Tab = tabs[0];
-        const {url, id} = tab;
-        //matches: ['https://seelie.inmagi.com/*', 'https://seelie.me/*', 'https://localhost:3000/*'],
-        if (url && !(url.includes('https://seelie.me')
-            || url.includes('https://seelie.inmagi.com')
-            || url.includes('https://localhost')
-        )) {
-            alert('please open https://seelie.me or https://seelie.inmagi.com ')
-            return
-        }
-        id && sendMessage4AddCharacter(id);
+    chrome.tabs.query({
+        active: true,
+        currentWindow: true,
+        url: ["https://seelie.me/*", "https://seelie.inmagi.com/*"],
+    }, function (tabs) {
+        const [tab] = tabs;
+        const {id} = tab || {id: undefined}
+        id ? sendMessage4AddCharacter(id) : alert(chrome.i18n.getMessage('alertMsg'));
     });
 }
 

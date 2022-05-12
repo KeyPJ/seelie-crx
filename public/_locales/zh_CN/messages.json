@@ -23,6 +23,9 @@
   "accountSwitch": {
     "message": "账户选择"
   },
+  "alertMsg": {
+    "message": "请打开 https://seelie.me 或者 https://seelie.inmagi.com"
+  },
   "ascensionDataFail": {
     "message": "米游社数据无法判断是否突破,请自行比较整数等级是否已突破"
   },
