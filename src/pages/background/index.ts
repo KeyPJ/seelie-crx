@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(({method, params}, sender, sendResponse) =>
 
 
 const syncCnEnData = (str: string) => {
-    fetch(`https://cdn.jsdelivr.net/gh/KeyPJ/seelieEx@main/src/data/${str}.json`).then(
+    fetch(`https://seelie-ex.vercel.app/${str}.json`).then(
         res => res.json()
     ).then(data => {
         chrome.storage.sync.set({[str]: data}, function () {
