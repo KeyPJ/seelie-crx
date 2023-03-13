@@ -1,8 +1,7 @@
 let charactersNum = 100;
 (async () => {
-    chrome.storage.sync.get("character", (items) => {
-        const {character} = items;
-        charactersNum = character?.length || 100;
+    chrome.storage.sync.get("character").then((items: any) => {
+        charactersNum = items?.character?.length || 100;
     });
 })();
 
@@ -12,20 +11,23 @@ import Data = mihoyo.Data;
 import Character = mihoyo.Character;
 import CharacterData = mihoyo.CharacterData;
 import CharacterDataEx = mihoyo.CharacterDataEx;
+import {
+    BBS_URL,
+    BBS_URL_GLOBAL,
+    CHARACTERS_DETAIL_URL,
+    CHARACTERS_DETAIL_URL_GLOBAL,
+    CHARACTERS_URL,
+    CHARACTERS_URL_GLOBAL,
+    ROLE_URL,
+    ROLE_URL_GLOBAL,
+    setExtraHeadersByIsGlobal
+} from "@pages/background/net";
 
-const BBS_URL = 'https://webstatic.mihoyo.com/ys/event/e20210928review/index.html'
-const ROLE_URL = 'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=hk4e_cn'
-const CHARACTERS_URL = 'https://api-takumi.mihoyo.com/event/e20200928calculate/v1/sync/avatar/list'
-const CHARACTERS_DETAIL_URL = 'https://api-takumi.mihoyo.com/event/e20200928calculate/v1/sync/avatar/detail'
-
-const BBS_URL_GLOBAL = 'https://webstatic-sea.mihoyo.com/ys/event/e20210928review/index.html'
-const ROLE_URL_GLOBAL = 'https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByLtoken?game_biz=hk4e_global'
-const CHARACTERS_URL_GLOBAL = 'https://sg-public-api.mihoyo.com/event/calculateos/sync/avatar/list'
-const CHARACTERS_DETAIL_URL_GLOBAL = 'https://sg-public-api.mihoyo.com/event/calculateos/sync/avatar/detail'
 
 export const isGlobal = (region: string) => {
     return !["cn_gf01", "cn_qd01"].includes(region);
 }
+
 
 const requestPageSize = 50;
 
@@ -37,6 +39,7 @@ const showMessage = (message: string) => {
 
 export const getAccount = async (isGlobal: boolean) => {
 
+    setExtraHeadersByIsGlobal(isGlobal)
     const response = await fetch(isGlobal ? ROLE_URL_GLOBAL : ROLE_URL);
     const res = await response.json();
     const {retcode, message, data} = res;
@@ -53,6 +56,7 @@ export const getAccount = async (isGlobal: boolean) => {
 
 const getCharacters = async (uid: string, region: string, page = 1) => {
 
+    setExtraHeadersByIsGlobal(isGlobal(region))
     const url = isGlobal(region) ? CHARACTERS_URL_GLOBAL : CHARACTERS_URL;
     const response = await fetch(url, {
         method: "post", body:
@@ -81,18 +85,23 @@ const getCharacters = async (uid: string, region: string, page = 1) => {
 };
 
 const getCharacterDetail = async (character: Character, uid: string, region: string) => {
+
+    setExtraHeadersByIsGlobal(isGlobal(region))
+
     const {id} = character;
     const params = `?avatar_id=${id}&uid=${uid}&region=${region}&lang=zh-cn`
     const URL = isGlobal(region) ? CHARACTERS_DETAIL_URL_GLOBAL : CHARACTERS_DETAIL_URL;
 
-    const response = await fetch(URL + params, {credentials: 'include'});
+    const response = await fetch(URL + params, {
+        credentials: 'include',
+    });
     const res = await response.json();
     const {retcode, message, data} = res;
     if (retcode === 0) {
         const characterData = await data as CharacterData;
         return {character, ...characterData} as CharacterDataEx;
     } else {
-        throw new Error(message);
+        console.error(message);
     }
 };
 
@@ -110,9 +119,12 @@ export const getDetailList = async (game_uid: string, region: string) => {
     const details = characters.map(c => getCharacterDetail(c, game_uid, region));
     const detailList = [];
     for await (const d of details) {
-        detailList.push(d);
+        if (d) {
+            detailList.push(d);
+        }
     }
     return detailList;
 }
+
 
 

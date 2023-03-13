@@ -36,9 +36,12 @@ const manifest: ManifestType = {
             matches: [],
         },
     ],
-    permissions: ['storage', 'cookies', 'alarms', 'notifications', "tabs"],
+    permissions: ['storage', 'cookies', 'alarms', 'notifications', "tabs", "declarativeNetRequest"],
     host_permissions: [
         "https://*.mihoyo.com/*",
+        "https://*.hoyoverse.com/*",
+        "https://seelie.inmagi.com/*",
+        "https://seelie.me/*",
     ],
     default_locale: "zh_CN"
 };

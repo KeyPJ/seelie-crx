@@ -12,30 +12,16 @@ chrome.runtime.onMessage.addListener(({method, params}, sender, sendResponse) =>
     }
 });
 
-
-//debugger
-// chrome.storage.onChanged.addListener(function (changes, namespace) {
-//     for (const [key, {oldValue, newValue}] of Object.entries(changes)) {
-//         console.log(
-//             `Storage key "${key}" in namespace "${namespace}" changed.`,
-//             `Old value was "${oldValue}", new value is "${newValue}".`
-//         );
-//     }
-// });
-
-
 const syncCnEnData = (str: string) => {
-    fetch(`https://seelie-ex.vercel.app/${str}.json`).then(
+    fetch(`https://cdn.jsdelivr.net/gh/KeyPJ/seelieEx@main/src/data/${str}.json`).then(
         res => res.json()
     ).then(data => {
-        chrome.storage.sync.set({[str]: data}, function () {
-            // console.log('Value is set to ' + JSON.stringify(data));
-        });
+        chrome.storage.sync.set({[str]: data});
     })
 };
 
 chrome.alarms.onAlarm.addListener(function (alarm) {
-    console.log("Got an alarm!", alarm);
+    console.log("syncCnEnData!", alarm);
     syncCnEnData("character");
     syncCnEnData("weapon");
 });
@@ -44,4 +30,3 @@ chrome.alarms.create("alarmName", {
         delayInMinutes: 0.1, periodInMinutes: 60
     }
 );
-
