@@ -12,11 +12,11 @@ import {addCharacter, batchUpdateCharacter, batchUpdateWeapon, showMessage} from
 
 function ExDialog() {
 
-    const [gameBizSwitchEnabled, setGameBizSwitchEnabled] = useState(() => false);
-
-    const onChangeGameBiz = (e: boolean) => {
-        setGameBizSwitchEnabled(e)
-    };
+    // const [gameBizSwitchEnabled, setGameBizSwitchEnabled] = useState(() => false);
+    //
+    // const onChangeGameBiz = (e: boolean) => {
+    //     setGameBizSwitchEnabled(e)
+    // };
 
     const [accountList, setAccountList] = useState<Role[]>([]);
 
@@ -35,7 +35,7 @@ function ExDialog() {
     }
 
     const getAccountList = () => {
-        chrome.runtime.sendMessage({method: "get-account", params: {isGlobal: gameBizSwitchEnabled}}, res => {
+        chrome.runtime.sendMessage({method: "get-account", params: {isGlobal: false}}, res => {
             const roles: mihoyo.Role[] = res;
             setAccountList(roles)
             roles.length > 0 && setCurrentAccount(roles[0])
@@ -103,18 +103,18 @@ function ExDialog() {
                                     />
                                 </Disclosure.Button>
                                 <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-white-500">
-                                    <div className="flex pt-4">
-                                        <div className="w-1/2 text-white-900">
-                                            {chrome.i18n.getMessage("gameBizSwitch")}:
-                                        </div>
-                                        <ToggleSwitch
-                                            className='w-1/2'
-                                            checked={gameBizSwitchEnabled}
-                                            onChange={onChangeGameBiz}
-                                            labelLeft={chrome.i18n.getMessage("gameBizCN")}
-                                            labelRight={chrome.i18n.getMessage("gameBizGlobal")}
-                                        />
-                                    </div>
+                                    {/*<div className="flex pt-4">*/}
+                                    {/*    <div className="w-1/2 text-white-900">*/}
+                                    {/*        {chrome.i18n.getMessage("gameBizSwitch")}:*/}
+                                    {/*    </div>*/}
+                                    {/*    <ToggleSwitch*/}
+                                    {/*        className='w-1/2'*/}
+                                    {/*        checked={gameBizSwitchEnabled}*/}
+                                    {/*        onChange={onChangeGameBiz}*/}
+                                    {/*        labelLeft={chrome.i18n.getMessage("gameBizCN")}*/}
+                                    {/*        labelRight={chrome.i18n.getMessage("gameBizGlobal")}*/}
+                                    {/*    />*/}
+                                    {/*</div>*/}
                                     <div className="flex pt-2">
                                         <div className="w-full">
                                             <button className="text-white bg-blue-500 px-4 py-2"

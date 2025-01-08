@@ -22,6 +22,16 @@ let currentReferer = ''
 let currentUA = ''
 const ruleID = 2333
 
+function generate12CharString() {
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < 12; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
+    return result;
+}
+
 export const updateRules = async (ignoreCookie = false) => {
     const rules = []
     for (let i = 0; i < targetPages.length; i++) {
@@ -34,6 +44,7 @@ export const updateRules = async (ignoreCookie = false) => {
                     {header: 'Referer', operation: 'set', value: currentReferer},
                     {header: 'Origin', operation: 'set', value: currentReferer},
                     {header: 'User-Agent', operation: 'set', value: currentUA},
+                    {header: 'x-rpc-device_fp', operation: 'set', value: generate12CharString()},
                 ],
             },
             condition: {urlFilter: targetPages[i]},

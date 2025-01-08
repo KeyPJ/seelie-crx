@@ -39,7 +39,7 @@ const manifest: ManifestType = {
     permissions: ['storage', 'cookies', 'alarms', 'notifications', "tabs", "declarativeNetRequest"],
     host_permissions: [
         "https://*.mihoyo.com/*",
-        "https://*.hoyoverse.com/*",
+        // "https://*.hoyoverse.com/*",
         "https://seelie.inmagi.com/*",
         "https://seelie.me/*",
     ],

@@ -25,7 +25,7 @@ import {
 
 
 export const isGlobal = (region: string) => {
-    return !["cn_gf01", "cn_qd01"].includes(region);
+    return false;
 }
 
 
@@ -86,23 +86,25 @@ const getCharacters = async (uid: string, region: string, page = 1) => {
 
 const getCharacterDetail = async (character: Character, uid: string, region: string) => {
 
-    setExtraHeadersByIsGlobal(isGlobal(region))
+    return {character, ...character} as any as CharacterDataEx;
 
-    const {id} = character;
-    const params = `?avatar_id=${id}&uid=${uid}&region=${region}&lang=zh-cn`
-    const URL = isGlobal(region) ? CHARACTERS_DETAIL_URL_GLOBAL : CHARACTERS_DETAIL_URL;
-
-    const response = await fetch(URL + params, {
-        credentials: 'include',
-    });
-    const res = await response.json();
-    const {retcode, message, data} = res;
-    if (retcode === 0) {
-        const characterData = await data as CharacterData;
-        return {character, ...characterData} as CharacterDataEx;
-    } else {
-        console.error(message);
-    }
+    // setExtraHeadersByIsGlobal(isGlobal(region))
+    //
+    // const {id} = character;
+    // const params = `?avatar_id=${id}&uid=${uid}&region=${region}&lang=zh-cn`
+    // const URL = isGlobal(region) ? CHARACTERS_DETAIL_URL_GLOBAL : CHARACTERS_DETAIL_URL;
+    //
+    // const response = await fetch(URL + params, {
+    //     credentials: 'include',
+    // });
+    // const res = await response.json();
+    // const {retcode, message, data} = res;
+    // if (retcode === 0) {
+    //     const characterData = await data as CharacterData;
+    //     return {character, ...characterData} as CharacterDataEx;
+    // } else {
+    //     console.error(message);
+    // }
 };
 
 export const getDetailList = async (game_uid: string, region: string) => {
