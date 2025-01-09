@@ -12,27 +12,41 @@ export const CHARACTERS_URL_GLOBAL = 'https://sg-public-api.hoyoverse.com/event/
 export const CHARACTERS_DETAIL_URL_GLOBAL = 'https://sg-public-api.hoyoverse.com/event/calculateos/sync/avatar/detail'
 
 const targetPages = [
-    ROLE_URL, CHARACTERS_URL, CHARACTERS_DETAIL_URL,
-    ROLE_URL_GLOBAL, CHARACTERS_URL_GLOBAL, CHARACTERS_DETAIL_URL_GLOBAL
+    ROLE_URL, CHARACTERS_URL, //CHARACTERS_DETAIL_URL,
+    // ROLE_URL_GLOBAL, CHARACTERS_URL_GLOBAL, CHARACTERS_DETAIL_URL_GLOBAL
 ]
 
 const range = (start: number, end: number) => Array.from({length: end - start + 1}, (_, i) => start + i)
 
 let currentReferer = ''
 let currentUA = ''
-const ruleID = 2333
+let ruleID = 2333
 
-function generate12CharString() {
-    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+export function generate12CharString(number = 12) {
+    const characters = 'abcdef0123456789';
     let result = '';
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < number; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         result += characters[randomIndex];
     }
     return result;
 }
 
-export const updateRules = async (ignoreCookie = false) => {
+export const updateRules = async (fp = "") => {
+    let requestHeaders = [
+        {header: 'Referer', operation: 'set', value: currentReferer},
+        {header: 'Origin', operation: 'set', value: currentReferer},
+        {header: 'User-Agent', operation: 'set', value: currentUA},
+    ];
+    console.log("fp", fp)
+    if (fp) {
+        ruleID = 3333
+        requestHeaders = [
+            {header: 'Referer', operation: 'set', value: currentReferer},
+            {header: 'Origin', operation: 'set', value: currentReferer},
+            {header: 'User-Agent', operation: 'set', value: currentUA},
+            {header: 'x-rpc-device_fp', operation: 'set', value: fp},]
+    }
     const rules = []
     for (let i = 0; i < targetPages.length; i++) {
         rules.push({
@@ -40,12 +54,7 @@ export const updateRules = async (ignoreCookie = false) => {
             priority: 1,
             action: {
                 type: 'modifyHeaders',
-                requestHeaders: [
-                    {header: 'Referer', operation: 'set', value: currentReferer},
-                    {header: 'Origin', operation: 'set', value: currentReferer},
-                    {header: 'User-Agent', operation: 'set', value: currentUA},
-                    {header: 'x-rpc-device_fp', operation: 'set', value: generate12CharString()},
-                ],
+                requestHeaders: requestHeaders,
             },
             condition: {urlFilter: targetPages[i]},
         })
@@ -67,27 +76,20 @@ const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
 }
 
-const headersGolbal = {
-    Referer: "https://act.hoyoverse.com/",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-}
+
 
 
 export const setExtraHeaders = async (
     referer: string,
     ua: string,
-    ignoreCookie = false,
+    fp = "",
 ) => {
     currentReferer = referer
     currentUA = ua
-    await updateRules(ignoreCookie)
+    await updateRules(fp)
 }
 
 
-export function setExtraHeadersByIsGlobal(isGlobal: boolean) {
-    if (!isGlobal) {
-        setExtraHeaders(headers.Referer, headers["User-Agent"])
-    } else {
-        setExtraHeaders(headersGolbal.Referer, headersGolbal["User-Agent"])
-    }
+export function setExtraHeadersByIsGlobal(isGlobal: boolean, fp = "") {
+    setExtraHeaders(headers.Referer, headers["User-Agent"], fp)
 }

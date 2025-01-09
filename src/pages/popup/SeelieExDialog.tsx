@@ -9,6 +9,7 @@ import '@assets/styles/tailwind.css';
 import Role = mihoyo.Role;
 import CharacterDataEx = mihoyo.CharacterDataEx;
 import {addCharacter, batchUpdateCharacter, batchUpdateWeapon, showMessage} from "@pages/popup/message";
+import {useMysDevice} from "@src/setStorage";
 
 function ExDialog() {
 
@@ -21,6 +22,8 @@ function ExDialog() {
     const [accountList, setAccountList] = useState<Role[]>([]);
 
     const [currentAccount, setCurrentAccount] = useState<Role>();
+
+    const [mysDevice, setMysDevice] = useMysDevice();
 
     const handleRoleSelectChange = (idx: number) => {
         setCurrentAccount(accountList[idx])
@@ -39,8 +42,29 @@ function ExDialog() {
             const roles: mihoyo.Role[] = res;
             setAccountList(roles)
             roles.length > 0 && setCurrentAccount(roles[0])
+            getFp()
         })
     };
+
+    function getGuid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+        }
+
+        return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4())
+    }
+
+    const getFp = () => {
+        let id = mysDevice.id;
+        if (!id) {
+            id = getGuid();
+            setMysDevice({...mysDevice, id: id})
+        }
+        chrome.runtime.sendMessage({method: "get-fp", params: {deviceId: id}}, res => {
+            const fp: string = res;
+            setMysDevice({...mysDevice, fp: fp})
+        })
+    }
 
     const syncCharacterInfo = () => {
         if (!currentAccount) {
@@ -50,8 +74,12 @@ function ExDialog() {
         }
         console.log(chrome.i18n.getMessage("dataSyncStart"))
         const {game_uid, region} = currentAccount;
-        chrome.runtime.sendMessage({method: "get-detail-list", params: {game_uid, region}}, res => {
+        const {fp} = mysDevice;
+        chrome.runtime.sendMessage({method: "get-detail-list", params: {game_uid, region, fp}}, res => {
             {
+                if (!res || res.error) {
+                    setMysDevice({...mysDevice, fp: ""})
+                }
                 console.group('返回数据');
                 console.groupCollapsed('角色');
                 console.table(res.map((a: CharacterDataEx) => a.character))

@@ -1,4 +1,4 @@
-import {getAccount, getDetailList} from "@pages/background/hoyo";
+import {getAccount, getDetailList, getFp} from "@pages/background/hoyo";
 
 chrome.runtime.onMessage.addListener(({method, params}, sender, sendResponse) => {
     // 2. A page requested user data, respond with a copy of `user`
@@ -7,7 +7,11 @@ chrome.runtime.onMessage.addListener(({method, params}, sender, sendResponse) =>
             getAccount(params.isGlobal).then(sendResponse)
             return true;
         case "get-detail-list":
-            getDetailList(params.game_uid, params.region).then(sendResponse)
+            getDetailList(params.game_uid, params.region, params.fp).then(sendResponse)
+            return true;
+        case "get-fp":
+            // (params.game_uid, params.region).then(sendResponse)
+            getFp(params.deviceId).then(sendResponse)
             return true;
     }
 });
